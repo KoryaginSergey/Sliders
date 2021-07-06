@@ -12,15 +12,12 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var colorView: UIView!
     
-    @IBOutlet weak var lblRed: UILabel!
-    @IBOutlet weak var lblGreen: UILabel!
-    @IBOutlet weak var lblBlue: UILabel!
     
-    @IBOutlet weak var sldRed: UISlider! {
-        didSet {
-//            lblRed.text = String(sldRed.value)
-        }
-    }
+    @IBOutlet weak var txtRed: UITextField!
+    @IBOutlet weak var txtGreen: UITextField!
+    @IBOutlet weak var txtBlue: UITextField!
+    
+    @IBOutlet weak var sldRed: UISlider!
     @IBOutlet weak var sldGreen: UISlider!
     @IBOutlet weak var sldBlue: UISlider!
     
@@ -38,13 +35,50 @@ class ViewController: UIViewController {
         changeValues()
     }
     func changeValues() {
-        self.lblRed.text = "\(Int(sldRed.value))"
-        self.lblBlue.text = "\(Int(sldBlue.value))"
-        self.lblGreen.text = "\(Int(sldGreen.value))"
+        self.txtRed.text = "\(Int(sldRed.value))"
+        self.txtBlue.text = "\(Int(sldBlue.value))"
+        self.txtGreen.text = "\(Int(sldGreen.value))"
     }
     
     
+}
 
-
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string != "" {
+            guard let value = Int(string) else {
+                return false
+            }
+        }
+//        guard let value = Int(string) else {
+//            return false
+//        }
+        guard let text = textField.text else {
+            return false
+        }
+        let fullText = text + string
+        guard let fullValue = Float(fullText) else {return false}
+        if fullValue > 255 {
+            return false
+        }
+        switch textField.tag {
+        case 0:
+            sldRed.value = fullValue
+        case 1:
+            sldGreen.value = fullValue
+        case 2:
+            sldBlue.value = fullValue
+        default:
+            return false
+        }
+        changeColor()
+        return true
+    }
+    
+    
 }
 
