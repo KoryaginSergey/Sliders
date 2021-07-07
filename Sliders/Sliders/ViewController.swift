@@ -10,35 +10,37 @@ import Foundation
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var colorView: UIView!
+    @IBOutlet private weak var colorView: UIView!
     
-    @IBOutlet weak var txtRed: UITextField!
-    @IBOutlet weak var txtGreen: UITextField!
-    @IBOutlet weak var txtBlue: UITextField!
+    @IBOutlet private weak var redValueTextField: UITextField!
+    @IBOutlet private weak var greenValueTextField: UITextField!
+    @IBOutlet private weak var blueValueTextField: UITextField!
     
-    @IBOutlet weak var sldRed: UISlider!
-    @IBOutlet weak var sldGreen: UISlider!
-    @IBOutlet weak var sldBlue: UISlider!
+    @IBOutlet private weak var redSlider: UISlider!
+    @IBOutlet private weak var greenSlider: UISlider!
+    @IBOutlet private weak var blueSlider: UISlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sldRed.value = 125
-        sldGreen.value = 125
-        sldBlue.value = 125
+        redSlider.value = 125
+        greenSlider.value = 125
+        blueSlider.value = 125
         changeColor()
         changeValues()
     }
     func changeColor() {
-        colorView.backgroundColor = UIColor(red: CGFloat(sldRed.value/255.0), green: CGFloat(sldGreen.value/255.0), blue: CGFloat(sldBlue.value/255.0), alpha: 1)
+        colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value/255.0),
+                                            green: CGFloat(greenSlider.value/255.0),
+                                            blue: CGFloat(blueSlider.value/255.0), alpha: 1)
     }
     @IBAction func sliderRGBChanged(_ sender: Any) {
         changeColor()
         changeValues()
     }
     func changeValues() {
-        self.txtRed.text = "\(Int(sldRed.value))"
-        self.txtBlue.text = "\(Int(sldBlue.value))"
-        self.txtGreen.text = "\(Int(sldGreen.value))"
+        self.redValueTextField.text = "\(Int(redSlider.value))"
+        self.blueValueTextField.text = "\(Int(blueSlider.value))"
+        self.greenValueTextField.text = "\(Int(greenSlider.value))"
     }
 }
 
@@ -51,18 +53,19 @@ extension ViewController: UITextFieldDelegate {
         }
         switch textField.tag {
         case 0:
-            sldRed.value = fullValue
+            redSlider.value = fullValue
         case 1:
-            sldGreen.value = fullValue
+            greenSlider.value = fullValue
         case 2:
-            sldBlue.value = fullValue
+            blueSlider.value = fullValue
         default:
             return false
         }
         changeColor()
         return true
     }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
 
         guard let text = textField.text else {
             return false

@@ -100,13 +100,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="blueSlider" destination="fb1-zb-1jg" id="liB-vH-ISw"/>
+                        <outlet property="blueValueTextField" destination="hZc-WO-3q1" id="GPi-EI-tGW"/>
                         <outlet property="colorView" destination="5WB-5g-t2r" id="Cf2-rb-GvB"/>
-                        <outlet property="sldBlue" destination="fb1-zb-1jg" id="liB-vH-ISw"/>
-                        <outlet property="sldGreen" destination="sI5-aA-9aa" id="s3j-vQ-jah"/>
-                        <outlet property="sldRed" destination="3Ab-uy-b7U" id="msd-7W-cHw"/>
-                        <outlet property="txtBlue" destination="hZc-WO-3q1" id="GPi-EI-tGW"/>
-                        <outlet property="txtGreen" destination="tbd-bX-WuL" id="fnM-ga-8h3"/>
-                        <outlet property="txtRed" destination="8sZ-wv-XNe" id="mmO-pj-1nU"/>
+                        <outlet property="greenSlider" destination="sI5-aA-9aa" id="s3j-vQ-jah"/>
+                        <outlet property="greenValueTextField" destination="tbd-bX-WuL" id="fnM-ga-8h3"/>
+                        <outlet property="redSlider" destination="3Ab-uy-b7U" id="msd-7W-cHw"/>
+                        <outlet property="redValueTextField" destination="8sZ-wv-XNe" id="mmO-pj-1nU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
