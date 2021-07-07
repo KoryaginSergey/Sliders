@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var colorView: UIView!
     
-    
     @IBOutlet weak var txtRed: UITextField!
     @IBOutlet weak var txtGreen: UITextField!
     @IBOutlet weak var txtBlue: UITextField!
@@ -23,13 +22,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sldRed.value = 125
+        sldGreen.value = 125
+        sldBlue.value = 125
         changeColor()
         changeValues()
     }
     func changeColor() {
         colorView.backgroundColor = UIColor(red: CGFloat(sldRed.value/255.0), green: CGFloat(sldGreen.value/255.0), blue: CGFloat(sldBlue.value/255.0), alpha: 1)
     }
-    
     @IBAction func sliderRGBChanged(_ sender: Any) {
         changeColor()
         changeValues()
@@ -39,30 +40,13 @@ class ViewController: UIViewController {
         self.txtBlue.text = "\(Int(sldBlue.value))"
         self.txtGreen.text = "\(Int(sldGreen.value))"
     }
-    
-    
 }
 
 extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        return true
-    }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string != "" {
-            guard let value = Int(string) else {
-                return false
-            }
-        }
-//        guard let value = Int(string) else {
-//            return false
-//        }
-        guard let text = textField.text else {
-            return false
-        }
-        let fullText = text + string
-        guard let fullValue = Float(fullText) else {return false}
-        if fullValue > 255 {
+        
+        guard let fullString = textField.text, let fullValue = Float(fullString) else {
             return false
         }
         switch textField.tag {
@@ -78,7 +62,17 @@ extension ViewController: UITextFieldDelegate {
         changeColor()
         return true
     }
-    
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        guard let text = textField.text else {
+            return false
+        }
+        let fullText = text + string
+        guard let fullValue = Float(fullText) else {return false}
+        if fullValue > 255 {
+            return false
+        }
+        return true
+    }
 }
 
