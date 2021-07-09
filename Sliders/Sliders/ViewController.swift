@@ -8,6 +8,12 @@
 import UIKit
 import Foundation
 
+enum TextFieldType: Int {
+    case red = 0
+    case green
+    case blue
+}
+
 class ViewController: UIViewController {
     
     @IBOutlet private weak var colorView: UIView!
@@ -27,16 +33,22 @@ class ViewController: UIViewController {
         blueSlider.value = 125
         changeColor()
         changeValues()
+        redValueTextField.tag = TextFieldType.red.rawValue
+        greenValueTextField.tag = TextFieldType.green.rawValue
+        blueValueTextField.tag = TextFieldType.blue.rawValue
     }
+    
     func changeColor() {
         colorView.backgroundColor = UIColor(red: CGFloat(redSlider.value/255.0),
                                             green: CGFloat(greenSlider.value/255.0),
                                             blue: CGFloat(blueSlider.value/255.0), alpha: 1)
     }
+    
     @IBAction func sliderRGBChanged(_ sender: Any) {
         changeColor()
         changeValues()
     }
+    
     func changeValues() {
         self.redValueTextField.text = "\(Int(redSlider.value))"
         self.blueValueTextField.text = "\(Int(blueSlider.value))"
@@ -51,12 +63,14 @@ extension ViewController: UITextFieldDelegate {
         guard let fullString = textField.text, let fullValue = Float(fullString) else {
             return false
         }
-        switch textField.tag {
-        case 0:
+        let type = TextFieldType(rawValue: textField.tag)
+        
+        switch type {
+        case .red:
             redSlider.value = fullValue
-        case 1:
+        case .green:
             greenSlider.value = fullValue
-        case 2:
+        case .blue:
             blueSlider.value = fullValue
         default:
             return false
@@ -78,4 +92,5 @@ extension ViewController: UITextFieldDelegate {
         return true
     }
 }
+
 
